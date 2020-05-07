@@ -10,8 +10,9 @@ import (
 )
 
 var (
-	token       = os.Getenv("SZKUVI_TOKEN")
-	baseMessage = "rozsul montot te ozstoba kecifei. hejesen: "
+	token          = os.Getenv("SZKUVI_TOKEN")
+	baseCorrection = "rozsul montot te ozstopa kecifei. hejesen: "
+	clapclap       = "azstakurfa esz iken prafo tabzs tabzs kecifei, perfekt szkufinyelf"
 )
 
 var szkuviRules = map[rune]rune{
@@ -53,7 +54,11 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	if message.Author.Bot {
 		return
 	}
-	m := baseMessage + szkuvify(message.Content)
+	if message.Content == szkuvify(message.Content) {
+		discord.ChannelMessageSend(message.ChannelID, clapclap)
+		return
+	}
+	m := baseCorrection + szkuvify(message.Content)
 	discord.ChannelMessageSend(message.ChannelID, m)
 }
 
