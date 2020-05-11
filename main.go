@@ -9,7 +9,10 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var token = os.Getenv("SZKUVI_TOKEN")
+var (
+	token               = os.Getenv("SZKUVI_TOKEN")
+	chanceToBeTriggered = 10
+)
 
 func main() {
 	discord, err := discordgo.New("Bot " + token)
@@ -40,7 +43,7 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi replies with a 10% chance
-	dice := genRandomNumber(10)
+	dice := genRandomNumber(100 / 10)
 	if dice != 5 {
 		return
 	}
