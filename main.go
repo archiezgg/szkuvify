@@ -48,7 +48,7 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	// szkuvi replies with a 10% chance
 	triggerInt, err := strconv.Atoi(triggerChance)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln(err, "set TRIGGER_CHANCE env var")
 	}
 
 	dice := logic.GenRandomNumber(100 / triggerInt)
