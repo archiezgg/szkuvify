@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 func szkuvify(text string) string {
 	var szkuvifiedPhrase string
 
@@ -18,4 +23,9 @@ func szkuvify(text string) string {
 		}
 	}
 	return szkuvifiedPhrase
+}
+
+func genRandomNumber(max int) int {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return r.Intn(max)
 }

@@ -38,6 +38,13 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	if message.Author.Bot {
 		return
 	}
+
+	// szkuvi replies with a 10% chance
+	dice := genRandomNumber(10)
+	if dice != 5 {
+		return
+	}
+
 	if message.Content == szkuvify(message.Content) {
 		discord.ChannelMessageSend(message.ChannelID, compliment)
 		return
