@@ -15,8 +15,7 @@ func szkuvify(text string) string {
 			continue
 		}
 
-		szkuviLetter, isLetterInRules := szkuviRules[letter]
-		if isLetterInRules {
+		if szkuviLetter, isLetterInRules := szkuviRules[letter]; isLetterInRules {
 			szkuvifiedPhrase += string(szkuviLetter)
 		} else {
 			szkuvifiedPhrase += string(letter)
@@ -28,4 +27,10 @@ func szkuvify(text string) string {
 func genRandomNumber(max int) int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return r.Intn(max)
+}
+
+func getElementRandomFromSlice(slice []string) string {
+	numberOfIndeces := len(slice) - 1
+	randomIndex := genRandomNumber(numberOfIndeces)
+	return slice[randomIndex]
 }
