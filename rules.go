@@ -16,7 +16,7 @@ var (
 		"csicsi rektumphei",
 	}
 
-	szkuviRules = map[rune]rune{
+	baseRules = map[rune]rune{
 		'v': 'f',
 		'g': 'k',
 		'b': 'p',
