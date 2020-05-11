@@ -9,24 +9,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var (
-	token          = os.Getenv("SZKUVI_TOKEN")
-	baseCorrection = "rozsul montot te ozstopa kecifei. hejesen: "
-	clapclap       = "azstakurfa esz iken prafo tabzs tabzs kecifei, perfekt szkufinyelf"
-)
-
-var szkuviRules = map[rune]rune{
-	'v': 'f',
-	'g': 'k',
-	'b': 'p',
-	'd': 't',
-	'j': 'i',
-}
-
-var yRules = map[rune]rune{
-	'g': 't',
-	'l': 'j',
-}
+var token = os.Getenv("SZKUVI_TOKEN")
 
 func main() {
 	discord, err := discordgo.New("Bot " + token)
@@ -56,29 +39,9 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 		return
 	}
 	if message.Content == szkuvify(message.Content) {
-		discord.ChannelMessageSend(message.ChannelID, clapclap)
+		discord.ChannelMessageSend(message.ChannelID, compliment)
 		return
 	}
 	m := baseCorrection + szkuvify(message.Content)
 	discord.ChannelMessageSend(message.ChannelID, m)
-}
-
-func szkuvify(text string) string {
-	var szkuvifiedPhrase string
-
-	for i, letter := range text {
-		specialLetter, isSpecial := yRules[letter]
-		if isSpecial && i != len(text)-1 && text[i+1] == 'y' {
-			szkuvifiedPhrase += string(specialLetter)
-			continue
-		}
-
-		szkuviLetter, isRule := szkuviRules[letter]
-		if isRule {
-			szkuvifiedPhrase += string(szkuviLetter)
-		} else {
-			szkuvifiedPhrase += string(letter)
-		}
-	}
-	return szkuvifiedPhrase
 }
