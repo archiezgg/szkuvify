@@ -13,7 +13,7 @@ import (
 
 var (
 	token               = os.Getenv("SZKUVI_TOKEN")
-	chanceToBeTriggered = 100
+	chanceToBeTriggered = 10
 )
 
 func main() {
