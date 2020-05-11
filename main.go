@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 
 	"github.com/IstvanN/szkuvify/logic"
@@ -12,8 +13,8 @@ import (
 )
 
 var (
-	token               = os.Getenv("SZKUVI_TOKEN")
-	chanceToBeTriggered = 10
+	token         = os.Getenv("SZKUVI_TOKEN")
+	triggerChance = os.Getenv("TRIGGER_CHANCE")
 )
 
 func main() {
@@ -45,7 +46,12 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi replies with a 10% chance
-	dice := logic.GenRandomNumber(100 / chanceToBeTriggered)
+	triggerInt, err := strconv.Atoi(triggerChance)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	dice := logic.GenRandomNumber(100 / triggerInt)
 	if dice != 0 {
 		return
 	}
