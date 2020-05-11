@@ -45,10 +45,13 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 		return
 	}
 
+	// szkuvi compliments
 	if message.Content == szkuvify(message.Content) {
-		discord.ChannelMessageSend(message.ChannelID, compliment)
+		discord.ChannelMessageSend(message.ChannelID, getElementRandomFromSlice(compliments))
 		return
 	}
-	m := baseCorrection + szkuvify(message.Content)
+
+	// szkuvi corrects
+	m := getElementRandomFromSlice(corrections) + szkuvify(message.Content)
 	discord.ChannelMessageSend(message.ChannelID, m)
 }
