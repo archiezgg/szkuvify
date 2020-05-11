@@ -3,4 +3,5 @@ version: '3.4'
 services:
   szkuvify:
     image: archiezgg/szkuvify:latest
+    container_name: szkuvify
     build: .

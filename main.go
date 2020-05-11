@@ -6,18 +6,20 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/IstvanN/szkuvify/logic"
+	"github.com/IstvanN/szkuvify/rules"
 	"github.com/bwmarrin/discordgo"
 )
 
 var (
 	token               = os.Getenv("SZKUVI_TOKEN")
-	chanceToBeTriggered = 10
+	chanceToBeTriggered = 100
 )
 
 func main() {
 	discord, err := discordgo.New("Bot " + token)
 	if err != nil {
-		log.Fatalln("error creating Discord session: ", err)
+		log.Fatalln("error creating Discord session:", err)
 		return
 	}
 	defer discord.Close()
@@ -43,18 +45,18 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi replies with a 10% chance
-	dice := genRandomNumber(100 / chanceToBeTriggered)
+	dice := logic.GenRandomNumber(100 / chanceToBeTriggered)
 	if dice != 0 {
 		return
 	}
 
 	// szkuvi compliments
-	if message.Content == szkuvify(message.Content) {
-		discord.ChannelMessageSend(message.ChannelID, getElementRandomFromSlice(compliments))
+	if message.Content == logic.Szkuvify(message.Content) {
+		discord.ChannelMessageSend(message.ChannelID, logic.GetRandomElementFromSlice(rules.Compliments))
 		return
 	}
 
 	// szkuvi corrects
-	m := getElementRandomFromSlice(corrections) + " " + szkuvify(message.Content)
+	m := logic.GetRandomElementFromSlice(rules.Corrections) + " " + logic.Szkuvify(message.Content)
 	discord.ChannelMessageSend(message.ChannelID, m)
 }
