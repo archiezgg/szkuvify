@@ -17,7 +17,7 @@ var (
 func main() {
 	discord, err := discordgo.New("Bot " + token)
 	if err != nil {
-		log.Println("error creating Discord session: ", err)
+		log.Fatalln("error creating Discord session: ", err)
 		return
 	}
 	defer discord.Close()
@@ -26,7 +26,7 @@ func main() {
 
 	err = discord.Open()
 	if err != nil {
-		log.Println("error opening Discord session: ", err)
+		log.Fatalln("error opening Discord session:", err)
 		return
 	}
 
@@ -43,8 +43,8 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi replies with a 10% chance
-	dice := genRandomNumber(100 / 10)
-	if dice != 5 {
+	dice := genRandomNumber(100 / chanceToBeTriggered)
+	if dice != 0 {
 		return
 	}
 
@@ -55,6 +55,6 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi corrects
-	m := getElementRandomFromSlice(corrections) + szkuvify(message.Content)
+	m := getElementRandomFromSlice(corrections) + " " + szkuvify(message.Content)
 	discord.ChannelMessageSend(message.ChannelID, m)
 }
