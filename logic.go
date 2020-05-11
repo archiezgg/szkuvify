@@ -9,14 +9,14 @@ func szkuvify(text string) string {
 	var szkuvifiedPhrase string
 
 	for i, letter := range text {
-		specialLetter, isSpecial := yRules[letter]
-		if isSpecial && i != len(text)-1 && text[i+1] == 'y' {
+		specialLetter, isLetterSpecial := yRules[letter]
+		if isLetterSpecial && i != len(text)-1 && text[i+1] == 'y' {
 			szkuvifiedPhrase += string(specialLetter)
 			continue
 		}
 
-		szkuviLetter, isRule := szkuviRules[letter]
-		if isRule {
+		szkuviLetter, isLetterInRules := szkuviRules[letter]
+		if isLetterInRules {
 			szkuvifiedPhrase += string(szkuviLetter)
 		} else {
 			szkuvifiedPhrase += string(letter)
