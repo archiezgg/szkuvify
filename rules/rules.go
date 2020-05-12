@@ -15,7 +15,7 @@ var (
 		"azstakurfa esz iken prafo",
 		"tabzs tabzs kecifei",
 		"perfekt szkufinyelf",
-		"szkufi apruvsz",
+		"szkufi aprufsz",
 		"csicsi rektumphei",
 	}
 
