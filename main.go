@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/IstvanN/szkuvify/handler"
+	"github.com/IstvanN/szkuvify/logic"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -20,7 +20,7 @@ func main() {
 	}
 	defer discord.Close()
 
-	discord.AddHandler(handler.SzkuviHandler)
+	discord.AddHandler(szkuviHandler)
 
 	err = discord.Open()
 	if err != nil {
@@ -32,4 +32,19 @@ func main() {
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
+}
+
+func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate) {
+	if message.Author.Bot {
+		return
+	}
+
+	// szkuvi compliments
+	if message.Content == logic.Szkuvify(message.Content) {
+		logic.Compliment(discord, message.ChannelID)
+		return
+	}
+
+	// szkuvi corrects
+	logic.Correkt(discord, message.ChannelID, message.Content)
 }

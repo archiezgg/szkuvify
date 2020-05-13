@@ -45,14 +45,18 @@ func Szkuvify(text string) string {
 
 // Compliment sends a reply randomly from compliments
 func Compliment(discord *discordgo.Session, channelID string) {
-	reply := getRandomElementFromSlice(rules.Compliments)
-	discord.ChannelMessageSend(channelID, reply)
+	if shouldSzkuviReply(triggerChance) {
+		reply := getRandomElementFromSlice(rules.Compliments)
+		discord.ChannelMessageSend(channelID, reply)
+	}
 }
 
 // Correkt sends a reply randomly from corrections
 func Correkt(discord *discordgo.Session, channelID string, originalMsg string) {
-	reply := getRandomElementFromSlice(rules.Corrections) + " " + Szkuvify(originalMsg)
-	discord.ChannelMessageSend(channelID, reply)
+	if shouldSzkuviReply(triggerChance) {
+		reply := getRandomElementFromSlice(rules.Corrections) + " " + Szkuvify(originalMsg)
+		discord.ChannelMessageSend(channelID, reply)
+	}
 }
 
 func shouldSzkuviReply(chance int) bool {
