@@ -77,7 +77,7 @@ func Correkt(discord *discordgo.Session, channelID string, originalMsg string) {
 
 func szkuviGetsTriggered(chance int) bool {
 	dice := genRandomNumber(100 / chance)
-	return dice != 0
+	return dice == 0
 }
 
 func genRandomNumber(max int) int {
