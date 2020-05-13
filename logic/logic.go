@@ -1,11 +1,27 @@
 package logic
 
 import (
+	"log"
 	"math/rand"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/IstvanN/szkuvify/rules"
 )
+
+var (
+	triggerChanceString = os.Getenv("TRIGGER_CHANCE")
+	triggerChance       int
+)
+
+func init() {
+	var err error
+	triggerChance, err = strconv.Atoi(triggerChanceString)
+	if err != nil {
+		log.Fatalln(err, "set TRIGGER_CHANCE env var")
+	}
+}
 
 // Szkuvify is the main logic function for forming the messages
 func Szkuvify(text string) string {
@@ -24,6 +40,12 @@ func Szkuvify(text string) string {
 		}
 	}
 	return szkuvifiedPhrase
+}
+
+// ShouldSzkuviReply returns with true if trigger chance hits, returns false if not
+func ShouldSzkuviReply(chanceString string) bool {
+	dice := GenRandomNumber(100 / triggerChance)
+	return dice != 0
 }
 
 // GenRandomNumber generates a random number between 0 and max (max not included)
