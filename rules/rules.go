@@ -28,6 +28,15 @@ var (
 		"hattyatok pékén",
 	}
 
+	//SummonTriggers stores those words that summons szkuvi to discord
+	SummonTriggers = []string{
+		"szkufi",
+		"szkuf",
+		"szkuv",
+		"szkufedli",
+		"szkufetli",
+	}
+
 	// BaseRules stores the mapping for the single characters
 	BaseRules = map[rune]rune{
 		'v': 'f',

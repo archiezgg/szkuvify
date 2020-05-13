@@ -36,7 +36,8 @@ func init() {
 func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 
 	// szkuvi gets summoned
-	if strings.Contains(message.Content, "szkufi") && szkuviGetsTriggered(summonChance) {
+
+	if messageContainsSummonTrigger(message.Content) && szkuviGetsTriggered(summonChance) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 		return
@@ -96,4 +97,13 @@ func getRandomElementFromSlice(slice []string) string {
 
 func isLetterFollowedByY(index int, text string) bool {
 	return index != len(text)-1 && text[index+1] == 'y'
+}
+
+func messageContainsSummonTrigger(message string) bool {
+	for _, trigger := range rules.SummonTriggers {
+		if strings.Contains(message, trigger) {
+			return true
+		}
+	}
+	return false
 }
