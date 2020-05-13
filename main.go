@@ -39,12 +39,5 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 		return
 	}
 
-	// szkuvi gets summoned
-	logic.ReplyToSummon(discord, message)
-
-	// szkuvi compliments
-	logic.Compliment(discord, message)
-
-	// szkuvi corrects
-	logic.Correkt(discord, message)
+	logic.Reply(discord, message)
 }

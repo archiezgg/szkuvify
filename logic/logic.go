@@ -32,6 +32,30 @@ func init() {
 	}
 }
 
+// Reply decides what and when does szkuvi replies
+func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
+
+	// szkuvi gets summoned
+	if strings.Contains(message.Content, "szkufi") && szkuviGetsTriggered(summonChance) {
+		reply := getRandomElementFromSlice(rules.SummonReplies)
+		discord.ChannelMessageSend(message.ChannelID, reply)
+		return
+	}
+
+	// szkuvi compliments
+	if message.Content == szkuvify(message.Content) && szkuviGetsTriggered(triggerChance) {
+		reply := getRandomElementFromSlice(rules.Compliments)
+		discord.ChannelMessageSend(message.ChannelID, reply)
+		return
+	}
+
+	//szkuvi correkts
+	if szkuviGetsTriggered(triggerChance) {
+		reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
+		discord.ChannelMessageSend(message.ChannelID, reply)
+	}
+}
+
 // szkuvify is the main logic function for forming the messages
 func szkuvify(text string) string {
 	var szkuvifiedPhrase string
@@ -49,33 +73,6 @@ func szkuvify(text string) string {
 		}
 	}
 	return szkuvifiedPhrase
-}
-
-// ReplyToSummon replies with a chance to a special trigger phrase with a chance
-func ReplyToSummon(discord *discordgo.Session, message *discordgo.MessageCreate) {
-	if strings.Contains(message.Content, "szkufi") && szkuviGetsTriggered(summonChance) {
-		reply := getRandomElementFromSlice(rules.SummonReplies)
-		discord.ChannelMessageSend(message.ChannelID, reply)
-	}
-	return
-}
-
-// Compliment sends a reply randomly from compliments
-func Compliment(discord *discordgo.Session, message *discordgo.MessageCreate) {
-	if message.Content == szkuvify(message.Content) && szkuviGetsTriggered(triggerChance) {
-		reply := getRandomElementFromSlice(rules.Compliments)
-		discord.ChannelMessageSend(message.ChannelID, reply)
-	}
-	return
-}
-
-// Correkt sends a reply randomly from corrections
-func Correkt(discord *discordgo.Session, message *discordgo.MessageCreate) {
-	if szkuviGetsTriggered(triggerChance) {
-		reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
-		discord.ChannelMessageSend(message.ChannelID, reply)
-	}
-	return
 }
 
 func szkuviGetsTriggered(chance int) bool {
