@@ -14,7 +14,9 @@ import (
 
 var (
 	triggerChanceString = os.Getenv("TRIGGER_CHANCE")
+	summonChanceString  = os.Getenv("SUMMON_CHANCE")
 	triggerChance       int
+	summonChance        int
 )
 
 func init() {
@@ -22,6 +24,11 @@ func init() {
 	triggerChance, err = strconv.Atoi(triggerChanceString)
 	if err != nil {
 		log.Fatalln(err, "set TRIGGER_CHANCE env var")
+	}
+
+	summonChance, err = strconv.Atoi(summonChanceString)
+	if err != nil {
+		log.Fatalln(err, "set SUMMON_CHANCE env var")
 	}
 }
 
@@ -46,7 +53,7 @@ func Szkuvify(text string) string {
 
 // ReplyToSummon replies with a chance to a special trigger word with a chance
 func ReplyToSummon(discord *discordgo.Session, channelID string, originalMsg string) {
-	if strings.Contains(originalMsg, "szkufi") && szkuviGetsTriggered(100) {
+	if strings.Contains(originalMsg, "szkufi") && szkuviGetsTriggered(summonChance) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
 		discord.ChannelMessageSend(channelID, reply)
 	}
