@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/IstvanN/szkuvify/rules"
@@ -43,9 +44,17 @@ func Szkuvify(text string) string {
 	return szkuvifiedPhrase
 }
 
+// ReplyToSummon replies with a chance to a special trigger word with a chance
+func ReplyToSummon(discord *discordgo.Session, channelID string, originalMsg string) {
+	if strings.Contains(originalMsg, "szkufi") && szkuviGetsTriggered(100) {
+		reply := getRandomElementFromSlice(rules.SummonReplies)
+		discord.ChannelMessageSend(channelID, reply)
+	}
+}
+
 // Compliment sends a reply randomly from compliments
 func Compliment(discord *discordgo.Session, channelID string) {
-	if shouldSzkuviReply(triggerChance) {
+	if szkuviGetsTriggered(triggerChance) {
 		reply := getRandomElementFromSlice(rules.Compliments)
 		discord.ChannelMessageSend(channelID, reply)
 	}
@@ -53,13 +62,13 @@ func Compliment(discord *discordgo.Session, channelID string) {
 
 // Correkt sends a reply randomly from corrections
 func Correkt(discord *discordgo.Session, channelID string, originalMsg string) {
-	if shouldSzkuviReply(triggerChance) {
+	if szkuviGetsTriggered(triggerChance) {
 		reply := getRandomElementFromSlice(rules.Corrections) + " " + Szkuvify(originalMsg)
 		discord.ChannelMessageSend(channelID, reply)
 	}
 }
 
-func shouldSzkuviReply(chance int) bool {
+func szkuviGetsTriggered(chance int) bool {
 	dice := genRandomNumber(100 / chance)
 	return dice != 0
 }
