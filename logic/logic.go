@@ -42,18 +42,21 @@ func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		return
 	}
 
+	if !szkuviGetsTriggered(triggerChance) {
+		return
+	}
+
 	// szkuvi compliments
-	if message.Content == szkuvify(message.Content) && szkuviGetsTriggered(triggerChance) {
+	if message.Content == szkuvify(message.Content) {
 		reply := getRandomElementFromSlice(rules.Compliments)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 		return
 	}
 
 	//szkuvi correkts
-	if szkuviGetsTriggered(triggerChance) {
-		reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
-		discord.ChannelMessageSend(message.ChannelID, reply)
-	}
+	reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
+	discord.ChannelMessageSend(message.ChannelID, reply)
+
 }
 
 // szkuvify is the main logic function for forming the messages
