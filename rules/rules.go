@@ -19,6 +19,13 @@ var (
 		"csicsi rektumphei",
 	}
 
+	// Summonings stores what szkuvi says if he get's summoned
+	Summonings = []string{
+		"hattyál most nme",
+		"montyat keci",
+		"állantóan én kellekh hát peszarko",
+	}
+
 	// BaseRules stores the mapping for the single characters
 	BaseRules = map[rune]rune{
 		'v': 'f',
