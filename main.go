@@ -4,18 +4,13 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"strconv"
 	"syscall"
 
-	"github.com/IstvanN/szkuvify/logic"
-	"github.com/IstvanN/szkuvify/rules"
+	"github.com/IstvanN/szkuvify/handler"
 	"github.com/bwmarrin/discordgo"
 )
 
-var (
-	token         = os.Getenv("SZKUVI_TOKEN")
-	triggerChance = os.Getenv("TRIGGER_CHANCE")
-)
+var token = os.Getenv("SZKUVI_TOKEN")
 
 func main() {
 	discord, err := discordgo.New("Bot " + token)
@@ -25,7 +20,7 @@ func main() {
 	}
 	defer discord.Close()
 
-	discord.AddHandler(szkuviHandler)
+	discord.AddHandler(handler.SzkuviHandler)
 
 	err = discord.Open()
 	if err != nil {
@@ -37,32 +32,4 @@ func main() {
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
-
-}
-
-func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate) {
-	if message.Author.Bot {
-		return
-	}
-
-	// szkuvi replies with a 10% chance
-	triggerInt, err := strconv.Atoi(triggerChance)
-	if err != nil {
-		log.Fatalln(err, "set TRIGGER_CHANCE env var")
-	}
-
-	dice := logic.GenRandomNumber(100 / triggerInt)
-	if dice != 0 {
-		return
-	}
-
-	// szkuvi compliments
-	if message.Content == logic.Szkuvify(message.Content) {
-		discord.ChannelMessageSend(message.ChannelID, logic.GetRandomElementFromSlice(rules.Compliments))
-		return
-	}
-
-	// szkuvi corrects
-	m := logic.GetRandomElementFromSlice(rules.Corrections) + " " + logic.Szkuvify(message.Content)
-	discord.ChannelMessageSend(message.ChannelID, m)
 }
