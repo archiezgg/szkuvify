@@ -57,6 +57,7 @@ func ReplyToSummon(discord *discordgo.Session, message *discordgo.MessageCreate)
 		reply := getRandomElementFromSlice(rules.SummonReplies)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
+	return
 }
 
 // Compliment sends a reply randomly from compliments
@@ -65,6 +66,7 @@ func Compliment(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		reply := getRandomElementFromSlice(rules.Compliments)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
+	return
 }
 
 // Correkt sends a reply randomly from corrections
@@ -73,6 +75,7 @@ func Correkt(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
+	return
 }
 
 func szkuviGetsTriggered(chance int) bool {
