@@ -19,8 +19,8 @@ var (
 		"csicsi rektumphei",
 	}
 
-	// Summonings stores what szkuvi says if he get's summoned
-	Summonings = []string{
+	// SummonReplies stores what szkuvi says if he get's summoned
+	SummonReplies = []string{
 		"hattyál most nme",
 		"montyat keci",
 		"állantóan én kellekh hát peszarko",
