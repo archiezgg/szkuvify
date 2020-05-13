@@ -5,9 +5,9 @@ var (
 	Corrections = []string{
 		"rozsul montot, hejesen:",
 		"ozstopa tuk perekrin, asz hejesen:",
-		"asz nem uty fna hanme: ",
-		"falojaban asz: ",
-		"hatyomanyos szkufiul asz: ",
+		"asz nem uty fna hanme:",
+		"falojaban asz:",
+		"hatyomanyos szkufiul asz:",
 	}
 
 	// Compliments stores what szkuvi says if the message is well formed
@@ -24,6 +24,8 @@ var (
 		"hattyál most nme",
 		"montyat keci",
 		"állantóan én kellekh hát peszarko",
+		"mi fan mrá",
+		"hattyatok pékén",
 	}
 
 	// BaseRules stores the mapping for the single characters
