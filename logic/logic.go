@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/IstvanN/szkuvify/rules"
+	"github.com/bwmarrin/discordgo"
 )
 
 var (
@@ -42,22 +43,31 @@ func Szkuvify(text string) string {
 	return szkuvifiedPhrase
 }
 
-// ShouldSzkuviReply returns with true if trigger chance hits, returns false if not
-func ShouldSzkuviReply(chanceString string) bool {
-	dice := GenRandomNumber(100 / triggerChance)
+// Compliment sends a reply randomly from compliments
+func Compliment(discord *discordgo.Session, channelID string) {
+	reply := getRandomElementFromSlice(rules.Compliments)
+	discord.ChannelMessageSend(channelID, reply)
+}
+
+// Correkt sends a reply randomly from corrections
+func Correkt(discord *discordgo.Session, channelID string, originalMsg string) {
+	reply := getRandomElementFromSlice(rules.Corrections) + " " + Szkuvify(originalMsg)
+	discord.ChannelMessageSend(channelID, reply)
+}
+
+func shouldSzkuviReply(chance int) bool {
+	dice := genRandomNumber(100 / chance)
 	return dice != 0
 }
 
-// GenRandomNumber generates a random number between 0 and max (max not included)
-func GenRandomNumber(max int) int {
+func genRandomNumber(max int) int {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return r.Intn(max)
 }
 
-// GetRandomElementFromSlice returns a random element of a slice
-func GetRandomElementFromSlice(slice []string) string {
+func getRandomElementFromSlice(slice []string) string {
 	numberOfIndeces := len(slice) - 1
-	randomIndex := GenRandomNumber(numberOfIndeces)
+	randomIndex := genRandomNumber(numberOfIndeces)
 	return slice[randomIndex]
 }
 
