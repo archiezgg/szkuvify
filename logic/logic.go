@@ -32,8 +32,8 @@ func init() {
 	}
 }
 
-// Szkuvify is the main logic function for forming the messages
-func Szkuvify(text string) string {
+// szkuvify is the main logic function for forming the messages
+func szkuvify(text string) string {
 	var szkuvifiedPhrase string
 
 	for i, letter := range text {
@@ -51,27 +51,27 @@ func Szkuvify(text string) string {
 	return szkuvifiedPhrase
 }
 
-// ReplyToSummon replies with a chance to a special trigger word with a chance
-func ReplyToSummon(discord *discordgo.Session, channelID string, originalMsg string) {
-	if strings.Contains(originalMsg, "szkufi") && szkuviGetsTriggered(summonChance) {
+// ReplyToSummon replies with a chance to a special trigger phrase with a chance
+func ReplyToSummon(discord *discordgo.Session, message *discordgo.MessageCreate) {
+	if strings.Contains(message.Content, "szkufi") && szkuviGetsTriggered(summonChance) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
-		discord.ChannelMessageSend(channelID, reply)
+		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
 }
 
 // Compliment sends a reply randomly from compliments
-func Compliment(discord *discordgo.Session, channelID string) {
-	if szkuviGetsTriggered(triggerChance) {
+func Compliment(discord *discordgo.Session, message *discordgo.MessageCreate) {
+	if message.Content == szkuvify(message.Content) && szkuviGetsTriggered(triggerChance) {
 		reply := getRandomElementFromSlice(rules.Compliments)
-		discord.ChannelMessageSend(channelID, reply)
+		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
 }
 
 // Correkt sends a reply randomly from corrections
-func Correkt(discord *discordgo.Session, channelID string, originalMsg string) {
+func Correkt(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	if szkuviGetsTriggered(triggerChance) {
-		reply := getRandomElementFromSlice(rules.Corrections) + " " + Szkuvify(originalMsg)
-		discord.ChannelMessageSend(channelID, reply)
+		reply := getRandomElementFromSlice(rules.Corrections) + " " + szkuvify(message.Content)
+		discord.ChannelMessageSend(message.ChannelID, reply)
 	}
 }
 

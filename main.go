@@ -40,14 +40,11 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 	}
 
 	// szkuvi gets summoned
-	logic.ReplyToSummon(discord, message.ChannelID, message.Content)
+	logic.ReplyToSummon(discord, message)
 
 	// szkuvi compliments
-	if message.Content == logic.Szkuvify(message.Content) {
-		logic.Compliment(discord, message.ChannelID)
-		return
-	}
+	logic.Compliment(discord, message)
 
 	// szkuvi corrects
-	logic.Correkt(discord, message.ChannelID, message.Content)
+	logic.Correkt(discord, message)
 }
