@@ -32,6 +32,8 @@ var (
 	SummonTriggers = []string{
 		"szkuf",
 		"szkuv",
+		"szkúf",
+		"szkúv"
 	}
 
 	// BaseRules stores the mapping for the single characters
