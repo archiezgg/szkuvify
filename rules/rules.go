@@ -33,7 +33,7 @@ var (
 		"szkuf",
 		"szkuv",
 		"szkúf",
-		"szkúv"
+		"szkúv",
 	}
 
 	// BaseRules stores the mapping for the single characters
