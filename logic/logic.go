@@ -15,33 +15,35 @@ import (
 var (
 	triggerChanceString = os.Getenv("TRIGGER_CHANCE")
 	summonChanceString  = os.Getenv("SUMMON_CHANCE")
-	triggerChance       int
-	summonChance        int
 )
 
-func init() {
-	var err error
-	triggerChance, err = strconv.Atoi(triggerChanceString)
+func getTriggerChance() int {
+	triggerChance, err := strconv.Atoi(triggerChanceString)
 	if err != nil {
 		log.Fatalln(err, "set TRIGGER_CHANCE env var")
 	}
+	return triggerChance
+}
 
-	summonChance, err = strconv.Atoi(summonChanceString)
+func getSummonChance() int {
+	summonChance, err := strconv.Atoi(summonChanceString)
 	if err != nil {
 		log.Fatalln(err, "set SUMMON_CHANCE env var")
 	}
+	return summonChance
 }
 
 // Reply decides what and when does szkuvi replies
 func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
+
 	// szkuvi gets summoned
-	if messageContainsSummonTrigger(message.Content) && szkuviGetsTriggered(summonChance) {
+	if messageContainsSummonTrigger(message.Content) && szkuviGetsTriggered(getSummonChance()) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 		return
 	}
 
-	if !szkuviGetsTriggered(triggerChance) {
+	if !szkuviGetsTriggered(getTriggerChance()) {
 		return
 	}
 
