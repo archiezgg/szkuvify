@@ -34,7 +34,6 @@ func init() {
 
 // Reply decides what and when does szkuvi replies
 func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
-
 	// szkuvi gets summoned
 	if messageContainsSummonTrigger(message.Content) && szkuviGetsTriggered(summonChance) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
@@ -61,8 +60,8 @@ func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 
 // szkuvify is the main logic function for forming the messages
 func szkuvify(text string) string {
+	text = strings.ToLower(text)
 	var szkuvifiedPhrase string
-
 	for i, letter := range text {
 		if specialLetter, isLetterYRule := rules.YRules[letter]; isLetterYRule && isLetterFollowedByY(i, text) {
 			szkuvifiedPhrase += string(specialLetter)
