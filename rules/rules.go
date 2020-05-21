@@ -25,7 +25,7 @@ var (
 		"montyat keci",
 		"állantóan én kellekh hát peszarko",
 		"mi fan mrá",
-		"hattyatok pékén",
+		"hattyatko pékén",
 	}
 
 	//SummonTriggers stores those words that summons szkuvi to discord
