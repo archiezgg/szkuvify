@@ -8,6 +8,10 @@ var (
 		"asz nem uty fna hanme:",
 		"falojaban asz:",
 		"hatyomanyos szkufiul asz:",
+		"enket mek hoty kijafitsalka:",
+		"ekészen pontosna:",
+		"cska a pontosák ketféért:",
+		"lyopp ha tutot:",
 	}
 
 	// Compliments stores what szkuvi says if the message is well formed
@@ -17,6 +21,13 @@ var (
 		"perfekt szkufinyelf",
 		"szkufi aprufsz",
 		"csicsi rektumphei",
+		"kratulálko",
+		"asz työnyörüh",
+		"prafo kecifei",
+		"fékre falaki hejesen peszél",
+		"szíl of aprufal krantit",
+		"kut kém fel pléjt",
+		"esz a peszté",
 	}
 
 	// SummonReplies stores what szkuvi says if he get's summoned
@@ -26,6 +37,13 @@ var (
 		"állantóan én kellekh hát peszarko",
 		"mi fan mrá",
 		"hattyatko pékén",
+		"lezsarmo",
+		"pisztos hoty nme",
+		"keci",
+		"pill, prp neför",
+		"páj páj luszerek",
+		"passzátko mek msto nme",
+		"kus majt késöp",
 	}
 
 	//SummonTriggers stores those words that summons szkuvi to discord
