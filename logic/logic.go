@@ -90,7 +90,7 @@ func genRandomNumber(max int) int {
 }
 
 func getRandomElementFromSlice(slice []string) string {
-	randomIndex := genRandomNumber(len(slice) - 1)
+	randomIndex := genRandomNumber(len(slice))
 	return slice[randomIndex]
 }
 
