@@ -46,13 +46,30 @@ var (
 		"kus majt késöp",
 	}
 
-	//SummonTriggers stores those words that summons szkuvi to discord
+	// ThankReplies contains replies that szkuvi says if some thanks something
+	ThankReplies = []string{
+		"ninscmti kecife",
+		"esz a lekefesepp",
+		"szifesen szuka plijat",
+		"ikaszán szifesen",
+		"ninscmti örüllyé",
+		"lele szifesen maskro se",
+	}
+
+	// SummonTriggers stores those words that summons szkuvi to discord
 	SummonTriggers = []string{
 		"szkuf",
 		"szkuv",
 		"szkúf",
 		"szkúv",
 		"keci",
+	}
+
+	// ThankTriggers contains the trigger words that triggers thank replies
+	ThankTriggers = []string{
+		"thenk",
+		"thank",
+		"tenk",
 	}
 
 	// BaseRules stores the mapping for the single characters
