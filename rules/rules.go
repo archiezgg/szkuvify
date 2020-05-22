@@ -72,6 +72,7 @@ var (
 		"tenk",
 		"kösz",
 		"közs",
+		"köc",
 		"thx",
 	}
 
