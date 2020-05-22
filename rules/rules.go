@@ -62,6 +62,8 @@ var (
 		'b': 'p',
 		'd': 't',
 		'j': 'i',
+		'w': 'f',
+		'k': 'g',
 	}
 
 	//YRules stores the mapping for the hungarian "y" characters (e.g "ly")
