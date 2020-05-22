@@ -36,8 +36,13 @@ func getSummonChance() int {
 // Reply decides what and when does szkuvi replies
 func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 
+	// someone thanks for something
+	if messageContainsTrigger(message.Content, rules.ThankTriggers) && szkuviGetsTriggered(getSummonChance()) {
+		reply := getRandomElementFromSlice(rules.ThankReplies)
+		discord.ChannelMessageSend(message.ChannelID, reply)
+	}
 	// szkuvi gets summoned
-	if messageContainsSummonTrigger(message.Content) && szkuviGetsTriggered(getSummonChance()) {
+	if messageContainsTrigger(message.Content, rules.SummonTriggers) && szkuviGetsTriggered(getSummonChance()) {
 		reply := getRandomElementFromSlice(rules.SummonReplies)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 		return
@@ -98,8 +103,8 @@ func isLetterFollowedByY(index int, text string) bool {
 	return index != len(text)-1 && text[index+1] == 'y'
 }
 
-func messageContainsSummonTrigger(message string) bool {
-	for _, trigger := range rules.SummonTriggers {
+func messageContainsTrigger(message string, triggers []string) bool {
+	for _, trigger := range triggers {
 		if strings.Contains(strings.ToLower(message), trigger) {
 			return true
 		}
