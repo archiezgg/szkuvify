@@ -40,6 +40,7 @@ func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	if messageContainsTrigger(message.Content, rules.ThankTriggers) && szkuviGetsTriggered(getSummonChance()) {
 		reply := getRandomElementFromSlice(rules.ThankReplies)
 		discord.ChannelMessageSend(message.ChannelID, reply)
+		return
 	}
 	// szkuvi gets summoned
 	if messageContainsTrigger(message.Content, rules.SummonTriggers) && szkuviGetsTriggered(getSummonChance()) {
