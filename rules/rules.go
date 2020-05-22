@@ -70,6 +70,9 @@ var (
 		"thenk",
 		"thank",
 		"tenk",
+		"kösz",
+		"közs",
+		"thx",
 	}
 
 	// BaseRules stores the mapping for the single characters
