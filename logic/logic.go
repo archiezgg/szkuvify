@@ -54,7 +54,7 @@ func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	}
 
 	// szkuvi compliments
-	if message.Content == szkuvify(message.Content) {
+	if strings.ToLower(message.Content) == szkuvify(message.Content) {
 		reply := getRandomElementFromSlice(rules.Compliments)
 		discord.ChannelMessageSend(message.ChannelID, reply)
 		return
