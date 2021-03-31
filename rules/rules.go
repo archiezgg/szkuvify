@@ -76,6 +76,15 @@ var (
 		"thx",
 	}
 
+	// ImgeReplies contains the answers szkuvi replies for image posts
+	ImageReplies = []string{
+		"asz iken keci",
+		"ftf",
+		"tank shit",
+		"lol asz otapasz",
+		"geg",
+	}
+
 	// BaseRules stores the mapping for the single characters
 	BaseRules = map[rune]rune{
 		'v': 'f',

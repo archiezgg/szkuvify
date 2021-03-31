@@ -36,6 +36,13 @@ func getSummonChance() int {
 // Reply decides what and when does szkuvi replies
 func Reply(discord *discordgo.Session, message *discordgo.MessageCreate) {
 
+	// someone posts an image/gif
+	if message.Content == "" && szkuviGetsTriggered(getTriggerChance()) {
+		reply := getRandomElementFromSlice(rules.ImageReplies)
+		discord.ChannelMessageSend(message.ChannelID, reply)
+		return
+	}
+
 	// someone thanks for something
 	if messageContainsTrigger(message.Content, rules.ThankTriggers) && szkuviGetsTriggered(getSummonChance()) {
 		reply := getRandomElementFromSlice(rules.ThankReplies)
