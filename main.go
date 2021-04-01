@@ -39,5 +39,6 @@ func szkuviHandler(discord *discordgo.Session, message *discordgo.MessageCreate)
 		return
 	}
 
+	log.Println(message.Content)
 	logic.Reply(discord, message)
 }
