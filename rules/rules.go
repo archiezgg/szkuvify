@@ -83,6 +83,12 @@ var (
 		"tank shit",
 		"lol asz otapasz",
 		"geg",
+		"ta fuk",
+		"napaszek",
+		"takarotty pasztmek",
+		"opaszt",
+		"ity ity",
+		"regt"
 	}
 
 	// BaseRules stores the mapping for the single characters
