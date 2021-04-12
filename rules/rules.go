@@ -88,7 +88,7 @@ var (
 		"takarotty pasztmek",
 		"opaszt",
 		"ity ity",
-		"regt"
+		"regt",
 	}
 
 	// BaseRules stores the mapping for the single characters
